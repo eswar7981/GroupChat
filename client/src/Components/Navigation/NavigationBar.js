@@ -109,8 +109,16 @@ const NavigationBar = () => {
                      </button>
                    </div>
                  </li>
+                 
                )}
-
+ <li>
+                <NavLink
+                  style={{ textDecoration: "None" }}
+                  to="autentication/logout"
+                >
+                  <div className="btn">Logout</div>
+                </NavLink>
+              </li>
              </div>
            </div>
          </ul>

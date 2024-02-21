@@ -7,7 +7,6 @@ const AutenticationController=require('../controllers/AutenticationControllers')
 router.get('/ConfirmResetPassword/',AutenticationController.resetPassword)
 
 router.post('/resetPassword',AutenticationController.resetthePassword)
-router.post('/forgotPassword',AutenticationController.forgotPassword)
 
 router.post("/login",AutenticationController.GetLoginDetails)
 

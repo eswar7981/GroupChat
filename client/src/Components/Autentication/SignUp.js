@@ -38,7 +38,7 @@ const SignUp = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(SignUpDetails)
-    /*if (SignUpDetails.password.length < 8) {
+    if (SignUpDetails.password.length < 8) {
       alert("password should contain atleast 8 characters");
     }
     else{
@@ -66,6 +66,7 @@ const SignUp = () => {
       setSignUpDetails({
         userName: "",
         email: "",
+        phoneNumber:"",
         password: "",
         confirmPassword: "",
       });
@@ -79,7 +80,7 @@ const SignUp = () => {
         confirmPassword: "",
       });
     }}
-    */
+ 
   };
 
   return (

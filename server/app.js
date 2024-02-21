@@ -6,13 +6,12 @@ const dotenv=require('dotenv')
 dotenv.config()
 const app=express()
 const User=require('./models/User')
-const Expenses=require('./models/Expenses')
+
 const Authroutes=require('./routes/autentication')
-const ExpenseRoutes=require('./routes/expenses')
+
 const sequelize = require('./util/database')
-const Order=require('./models/Orders')
-const PreviousFiles = require('./models/PreviousFiles')
-const ForgotPassword=require('./models/ForgotPasswordRequests')
+
+
 const compression=require('compression')
 const morgan=require('morgan')
 const fs=require('fs')
@@ -27,22 +26,13 @@ app.use(morgan('combined',{stream:accessLog}))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use('/autentication',function(req,res,next){
-    
-},Authroutes)
-app.use('/expenses',ExpenseRoutes)
+app.use('/autentication',Authroutes)
 
 
 
 
-User.hasMany(Expenses)
-Expenses.belongsTo(User)
-User.hasMany(Order)
-Order.belongsTo(User)
-User.hasMany(PreviousFiles)
-PreviousFiles.belongsTo(User)
-User.hasMany(ForgotPassword)
-ForgotPassword.belongsTo(User)
+
+
 
 
 sequelize.sync(

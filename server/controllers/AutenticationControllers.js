@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const client = Sib.ApiClient.instance;
 const apiKey = client.authentications["api-key"];
-const ForgotPasswordRequests = require("../models/ForgotPasswordRequests");
 const { SharedIniFileCredentials } = require("aws-sdk");
 const { v4: uuidv4 } = require("uuid");
 const { Transaction } = require("sequelize");
@@ -19,7 +18,7 @@ exports.GetSignupDetails = (req, res) => {
   const name = req.body.userName;
   const email = req.body.email;
   const password = req.body.password;
-
+  const phoneNumber=req.body.phoneNumber
   User.findOne({
     where: {
       emailAddress: email,
@@ -32,6 +31,7 @@ exports.GetSignupDetails = (req, res) => {
           await User.create({
             name: name,
             emailAddress: email,
+            phoneNumber:phoneNumber,
             password: hash,
           });
         });
@@ -82,53 +82,7 @@ exports.GetLoginDetails = (req, response) => {
   });
 };
 
-exports.forgotPassword = (req, res) => {
 
-  apiKey.apiKey =process.env.SIB_API_KEY
-    
-  const tranEmailApi = new Sib.TransactionalEmailsApi();
-
-  User.findOne({
-    where: {
-      emailAddress: req.body.email,
-    },
-  })
-    .then((data) => {
-      const sender = {
-        email: "eswarsatyavarapu7981@gmail.com",
-      };
-      const reciever = [
-        {
-          email: req.body.email,
-        },
-      ];
-
-      const id = uuidv4();
-      tranEmailApi
-        .sendTransacEmail({
-          sender,
-          to: reciever,
-          subject: "password change",
-          textContent: "Change your Password",
-          htmlContent: `<h4>Click Below link to change your password of Expense Tracker account</h4><a href="http://localhost:3000/autentication/resetPassword/${id}">Click Here</a>`,
-        })
-        .then((res) => {
-          ForgotPasswordRequests.create({
-            id: id,
-            UserId: data.id,
-            isActive: true,
-          });
-         
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json({ status: false });
-    });
-};
 
 exports.resetPassword = (req, res) => {
   const idUser = req.params.id;
