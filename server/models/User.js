@@ -17,12 +17,12 @@ const User=sequelize.define('User',{
     },password:{
         type:Sequelize.STRING,
         allowNull:false
-    },premiumUser:{
+    },phoneNumber:{
+        type:Sequelize.STRING,
+        allowNull:false
+    },status:{
         type:Sequelize.BOOLEAN,
         defaultValue:false
-    },totalExpenses:{
-        type:Sequelize.INTEGER,
-        defaultValue:0
     }
 })
 

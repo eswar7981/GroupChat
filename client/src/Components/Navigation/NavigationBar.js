@@ -6,63 +6,12 @@ import { authActions } from "../Store/AuthStore";
 import useRazorpay from "react-razorpay";
 
 const NavigationBar = () => {
-  const premium = useSelector((state) => state.auth.premium);
   const [Razorpay] = useRazorpay();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const login = useSelector((state) => state.auth.login);
 
-  const paymentHandler = (e) => {
-    e.preventDefault();
-    fetch("http://localhost:5000/expenses/addExpense/payment", {
-      method: "GET",
-      headers: {
-        token: token,
-      },
-    })
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((response) => {
-        console.log("hii");
-        console.log(response);
-        var options = {
-          key: response.key_id,
-          order_id: response.order.id,
-          handler: function (response) {
-            fetch(
-              "http://localhost:5000/expenses/addExpense/updatePaymentStatus",
-
-              {
-                headers: {
-                  token: token,
-                  order_id: options.order_id,
-                  payment_id: response.razorpay_payment_id,
-                },
-              }
-            )
-              .then((respo) => {
-                return respo.json();
-              })
-              .then((res) => {
-                console.log(res);
-                dispatch(authActions.setPremium());
-
-                alert("You are a Premium User from Now");
-              });
-          },
-        };
-
-        const rzp = new Razorpay(options);
-        rzp.open();
-        e.preventDefault();
-        rzp.on("payment.failed", function (response) {
-          console.log(response);
-          rzp.close();
-          alert("something went wrong");
-        });
-      });
-  };
+  
 
   return (
     <>
@@ -91,38 +40,36 @@ const NavigationBar = () => {
         )}
 
         {login && (
-         <div className="navi">
-         <ul style={{ listStyleType: "None" }}>
-           <div className="dropdown">
-             <button className="dropbtn">
-               <div className="menu"></div>
-               <div className="menu"></div>
-               <div className="menu"></div>
-             </button>
-             <div className="dropdown-content">
-               {!premium && (
-                 <li>
-                   <div className="Premium">
-                     {" "}
-                     <button onClick={paymentHandler} className="prem">
-                       Premium
-                     </button>
-                   </div>
-                 </li>
+          <div className="navi">
+            <ul style={{ listStyleType: "None" }}>
+              <div className="dropdown">
+                <button className="dropbtn">
+                  <div className="menu"></div>
+                  <div className="menu"></div>
+                  <div className="menu"></div>
+                </button>
+                <div className="dropdown-content">
                  
-               )}
- <li>
-                <NavLink
-                  style={{ textDecoration: "None" }}
-                  to="autentication/logout"
-                >
-                  <div className="btn">Logout</div>
-                </NavLink>
-              </li>
-             </div>
-           </div>
-         </ul>
-       </div>
+                  <li>
+                    <NavLink
+                      style={{ textDecoration: "None" }}
+                      to="chat/mainPage"
+                    >
+                      <div className="btn">Group Chat</div>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      style={{ textDecoration: "None" }}
+                      to="autentication/logout"
+                    >
+                      <div className="btn">Logout</div>
+                    </NavLink>
+                  </li>
+                </div>
+              </div>
+            </ul>
+          </div>
         )}
       </nav>
     </>

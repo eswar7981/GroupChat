@@ -4,17 +4,25 @@ import './Logout.css'
 import { useDispatch } from 'react-redux'
 import { authActions } from '../Store/AuthStore'
 
-
+import { useSelector } from 'react-redux'
 
 const Logout = () => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch=useDispatch()
   const navigate=useNavigate()
   async function submitHandler(e){
     e.preventDefault()
-  
-    const res=await fetch('http://localhost:5000/autentication/logout')
-    dispatch(authActions.setLogin())
-    navigate('/autentication/login')
+    const res=await fetch('http://localhost:5000/autentication/logout',{
+      method:"POST",
+      body:JSON.stringify({token:token}),
+      headers:{
+        'Content-Type':"application/json"
+      }
+    }).then(()=>{
+      dispatch(authActions.setLogin())
+      navigate('/autentication/login')
+    })
+
   }
 
   return (

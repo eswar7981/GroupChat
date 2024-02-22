@@ -1,0 +1,109 @@
+.border{
+    display: flex;
+    justify-content: center;
+    background-color:white;
+    border:solid;
+    border-color: #00957E;
+    border-width: 3px;
+  
+    border-radius: 30px;
+    margin: 10vh;
+    width:70vw;
+    height: 90vh;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    padding: 20px;
+    scrollbar-color: #00AC5D  #c4d58e;
+    scroll-padding-block:30px;
+}
+
+
+
+.border::-webkit-scrollbar-track {
+    background-color: red; 
+  }
+
+
+.participants{
+
+    margin: 10vh;
+    border-radius: 10px;
+    border:solid;
+    border-width: 1.5px;
+    width: 40vw;
+    height: 100vh;
+    background-color:#c18a43;
+}
+
+.profiles{
+    display: flex;
+    justify-content: center;
+}
+
+
+.messages{
+  
+}
+
+
+
+.prof {
+display: flex;
+justify-content: center;
+gap:50px;
+background-color: white;
+margin-top: 5px;
+padding-left: 10px;
+padding-right: 10px;
+border-radius: 40px;
+padding-top: 4px;
+position:absolute;
+}
+
+.p1{
+    border-radius: 300px;
+    background-color: red;
+    padding:8px 14px;
+    z-index:1
+}
+
+.p2{
+    position:sticky
+}
+
+.p3{
+    font-weight: bolder;
+    border-color: black;
+}
+
+
+
+.textbox{
+    display: flex;
+    justify-content: center;
+    gap:20px;
+  position: absolute;
+    margin-left: -350px;
+    z-index: 33;
+    margin-top: 300px;
+
+}
+
+.textbox input{
+    font-size: larger;
+    border-radius: 20px;
+    height: 25px;
+    width: 550px;
+    border: solid;
+}
+
+.icon button{
+    border:solid;
+    border-radius: 14px;
+    background-color: #00957E;
+}
+.icon button:active{
+    background-color: white;
+}

@@ -17,12 +17,6 @@ const authSlice=createSlice({
         },
         setToken(state,action){
             state.token=action.payload
-
-
-        },
-        setPremium(state){
-            state.premium=true
-            console.log(state.premium)
         }
 
     }

@@ -38,13 +38,9 @@ const Login = () => {
       .then((result) => {
         
         if (result.login !== "user not found" && result.login !== "failed") {
+
           dispatch(authActions.setToken(result.token));
           dispatch(authActions.setLogin());
-          if (result.premium === true) {
-            
-            dispatch(authActions.setPremium());
-         
-          }
           alert("login is successful");
           navigate("/expenses/addExpense");
         }

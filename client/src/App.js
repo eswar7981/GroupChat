@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import ForgotPassword from "./Components/Autentication/ForgotPassword";
 import { useEffect, useState } from "react";
 import PasswordReset from "./Components/Autentication/PasswordReset";
+import MainPage from "./Components/ChattingFeatures/MainPage";
 
 function App() {
   const [openingPage,setOpeningPage]=useState(true)
@@ -35,6 +36,8 @@ setOpeningPage(false)
           <Route path="autentication/login" element={<Login/>}></Route>
           <Route path="autentication/signUp" element={<SignUp/>}></Route>
           <Route path="autentication/logout" element={<Logout/>}></Route>
+          <Route path="chat/mainPage" element={<MainPage></MainPage>}></Route>
+  
   </Routes>
       </main>
  

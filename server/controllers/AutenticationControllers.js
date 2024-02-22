@@ -44,8 +44,16 @@ exports.GetSignupDetails = (req, res) => {
 };
 
 exports.logOut = (req, res) => {
+  const token=req.body.token
+  const id = jwt.verify(token,`${process.env.SECRET_KEY}`);
+  User.findOne({
+    where:{
+      id:id.userId
+    }
+  }).then((user)=>{
+    user.update({status:false})
+  })
   res.json("logout");
-  
 };
 
 
@@ -66,8 +74,8 @@ exports.GetLoginDetails = (req, response) => {
             if (resp === true) {
             
               const token = generateToken(res.id);
-             
-              response.json({login:'success', token: token, premium: res.premiumUser });
+              res.update({status:true})
+              response.json({login:'success', token: token });
             } else {
               response.json({login:'failed'});
              

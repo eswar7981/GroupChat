@@ -13,7 +13,7 @@ router.post("/login",AutenticationController.GetLoginDetails)
 router.post("/signUp",AutenticationController.GetSignupDetails)
 
 
-router.get("/logout",AutenticationController.logOut)
+router.post("/logout",AutenticationController.logOut)
 
 
 
