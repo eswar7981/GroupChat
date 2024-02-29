@@ -29,7 +29,7 @@
   }
 
 
-.participants{
+.participants12{
 
     margin: 10vh;
     border-radius: 10px;
@@ -39,13 +39,14 @@
     height: 60vh;
     background-color:rgb(102, 157, 102);
     position:absolute;
-    margin-left: 600px;
+    margin-left: 850px;
     margin-top: -5px;
 }
 
-.profiles{
+.profiles1{
     display: flex;
     justify-content: center;
+   
 }
 
 
@@ -59,10 +60,11 @@
 
 
 
-.prof {
+.prof1 {
 display: flex;
 justify-content: center;
-gap:150px;
+width: 251px;
+gap:100px;
 background-color: white;
 margin-top: 5px;
 padding-left: 10px;
@@ -73,20 +75,82 @@ box-shadow: 2px 5px 10px rgb(94, 91, 89);
 
 }
 
+.msgCol{
+    display:block;
+  margin-left: -5px;
+margin-right: 400px;
+}
+
+
+.msgCol1{
+    display:block;
+    margin-left: 380px;
+ 
+}
+
+.msg{
+    background-color: rgb(49, 162, 49);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    font-weight: bolder;
+    color: black;
+}
+
+.sentBy{
+    margin-left: 0px;
+  }
+
+.sentBy p{
+    font-size: 15px;
+}
+
+
+.sentBy1{
+    margin-left: 70px;
+  }
+
+.sentBy1 p{
+    font-size: 15px;
+}
+
 .p1{
     border-radius: 300px;
-   
     padding:9px 16px;
-    z-index:1
+    z-index:1;
+    border: solid;
+    border-width: 3px;
+    margin-left: -210px;
+  
 }
 
 .p2{
-    position:absolute
+    
 }
 
-.p3{
+.admin{
+    position:absolute;
+    margin-top: 20px;
+    margin-left: 190px
+}
+
+
+
+.remove1{
+    margin-left: 320px;
+    position: absolute;
+    margin-top: 20px;
+    background-color: rgb(205, 2, 2);
+    color: white;
+    border: solid;
+    border-color:black;
+    border-width: 1.4px;
+}
+
+.remove1:hover{
+    color: rgb(205, 2, 2);
+    background-color: white;
     font-weight: bolder;
-    border-color: black;
 }
 
 

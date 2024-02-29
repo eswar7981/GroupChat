@@ -1,0 +1,319 @@
+.border1{
+    display:grid;
+    justify-content: center;
+    gap:30px;
+    background-color: rgb(140, 190, 140);
+    padding: 50px 50px;
+    border-radius: 30px;
+    margin-top: 100px;
+    margin-left: -330px;
+    position:absolute;
+    z-index: 2;
+    box-shadow: 4px 10px 20px rgb(96, 113, 96);
+padding-bottom: 100px;
+}
+
+.labels label{
+    font-weight: bold;
+   
+}
+
+.groupParticipants{
+    display: flex;
+    justify-content: center;
+    position:absolute;
+    margin-left: 350px;
+    margin-top: 10px;
+    
+   }
+
+
+.participants{
+    padding-left: 200px;
+    padding-right: 50px;
+    box-shadow: 10px 5px 20px rgb(121, 150, 121);
+    border: none;
+}
+
+.group{
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.addparticipant{
+    border-radius: 100px;
+    border:solid;
+    padding-top:2px;
+    font-size: 20px;
+    position: relative;
+
+}
+
+.dropdown-content1 {
+    display: none;
+    position: absolute;
+    background-color:white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+.inputss{
+    display:grid;
+    
+}
+
+.inputss input{
+    height: 20px;
+}
+
+.inputss button{
+    background-color:  rgb(53, 167, 53);
+    border-width: 2px;
+    padding: 10px 17px;
+}
+
+.create {
+   
+   
+    height: 35px;
+    
+ 
+}
+
+.create button:hover{
+    border-color: black;
+    background-color:green;
+}
+
+.create button{
+    background-color: rgb(75, 147, 175);
+    border-radius: 30px;
+    border: solid;
+    border-color: white;
+    color:white;
+    padding: 5px 5px;
+}
+
+.form1{
+    display: flex;
+    gap:30px
+}
+.form2{
+    padding-left: 80px;
+    gap:50px;
+    padding-bottom: 30px;
+}
+
+.dropdown1 button{
+    position: absolute;
+    margin-left: 35px;
+    margin-top: 20px;
+}
+
+
+
+.remove {
+    height: 20px;
+    width: 60px;
+    margin-top: 20px;
+}
+.add button{
+   height: 20px;
+    width: 60px;
+    font-weight: 800px;
+    border-radius: 20px;
+    background-color:white;
+    border:solid;
+    border-width: 2px;
+
+
+}
+
+.adminbutton{
+    border:solid;
+    border-width: 0.5px;
+}
+
+.add {
+    font-weight: 800px;
+    position: absolute;
+    justify-items: center;
+    margin-left: 45px;
+    margin-top: -5px;
+}
+
+.add button:hover{
+background-color: rgb(68, 161, 68);
+
+}
+
+
+.add p{
+    margin-top:-8px ;
+}
+
+
+
+
+.remove{
+    border-radius: 20px;
+    background-color: rgb(75, 147, 175);;
+    border:solid;
+    border-width: 2px;
+    color:white;
+    border:solid;
+    border-color: black;
+    border-width: 1px;
+
+}
+
+.remove:hover{
+    background-color:rgb(219, 14, 14);
+}
+
+
+
+.admin button{
+    height: 20px;
+     width: 60px;
+     font-weight: 800px;
+     border-radius: 20px;
+     background-color:white;
+     border:solid;
+     border-width: 2px;
+ 
+ 
+ }
+ .admin {
+     font-weight: 800px;
+     position: absolute;
+     justify-items: center;
+     margin-left: 100px;
+     margin-top: -5px;
+ }
+ 
+ .admin button:hover{
+ background-color: rgb(68, 161, 68);
+ 
+ }
+ 
+ 
+ .admin p{
+     margin-top:-8px ;
+ }
+ 
+.adminbutton{
+    position: absolute;
+    margin-left: 320px;
+    border-radius: 2px;
+    margin-top:21px
+}
+
+
+/* Links inside the dropdown */
+.dropdown-content1 li {
+    color:black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    padding-right: 20px;
+    gap:100px
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content1 li:hover {border-radius: 20px}
+
+  .list-item li:hover{
+    border-width: 1px;
+    border-color: green;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown1:hover .dropdown-content1 {
+    display: block;
+    border:solid;
+    border-radius: 10px;
+    margin-left: 70px;
+    margin-top: 40px;
+    
+  }
+  
+  
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown1:hover .dropbtn {
+    background-color:white;
+    color: black;
+  }
+
+.remove{
+    display: flex;
+
+}
+
+
+
+.p2{
+    font-weight: 700;
+}
+
+
+.participants1{
+
+    margin: 10vh;
+    border-radius: 10px;
+    border:solid;
+    border-width: 1.5px;
+    width: 35vw;
+    height: 60vh;
+    background-color:rgb(102, 157, 102);
+    position:absolute;
+    margin-left: 0px;
+ 
+}
+
+.profiles1{
+    display: flex;
+    justify-content: center;
+}
+
+
+.messages1{
+  
+}
+
+
+
+.prof1 {
+display: flex;
+justify-content: center;
+gap:150px;
+background-color: white;
+margin-top: 5px;
+padding-left: 10px;
+padding-right: 70px;
+border-radius: 40px;
+padding-top: 4px;
+box-shadow: 2px 5px 10px rgb(94, 91, 89);
+
+}
+
+.p1{
+    border-radius: 300px;
+   
+    padding:9px 16px;
+    z-index:1
+}
+
+.p2{
+    position:absolute
+}
+
+.p3{
+    font-weight: bolder;
+    border-color: black;
+}
+

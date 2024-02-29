@@ -1,0 +1,71 @@
+.group-boundary{
+    display: flex;
+    background-color:rgb(49, 79, 49);
+    margin-bottom: 10px;
+    margin-left: 50px;
+    width: 500px;
+    border-radius: 20px;
+    margin-top:15px;
+ position: relative;
+    box-shadow: 0px 8px 16px  green;
+}
+
+
+.groups {
+    display:flex;
+    justify-content: center;
+}
+
+.groups p{
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 4px 3px 24px black;
+ 
+}
+
+
+.backbutton button{
+    margin-left: 40px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: gray;
+    color: white;
+    border: solid;
+    border-color:green;
+    padding: 5px 4px;
+    border-width: 3px;
+}
+
+.group-icon{
+    background-color:white;
+    border-radius: 20px;
+    width: 55px;
+    position:absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+    border-radius: 300px;
+}
+
+.group-icon p{
+    display: flex;
+    justify-content: center;
+}
+
+.group-name{
+    display: flex;
+    margin-left: 200px;
+    color: white;
+}
+
+.back{
+    background-color:#44a144;
+    margin-left: 40px;
+    border-radius: 20px;
+    padding-bottom: 300px;
+    padding-top: 30px;
+    margin-top: 10px;
+    width: 600px;
+    position: absolute;
+    box-shadow: 0px 8px 16px  green;
+   
+}

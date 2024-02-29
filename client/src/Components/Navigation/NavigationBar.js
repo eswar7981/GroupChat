@@ -11,10 +11,9 @@ const NavigationBar = () => {
   const token = useSelector((state) => state.auth.token);
   const login = useSelector((state) => state.auth.login);
 
-  
-
   return (
     <>
+
       <nav>
         {!login && (
           <ul style={{ listStyleType: "None" }}>
@@ -49,13 +48,20 @@ const NavigationBar = () => {
                   <div className="menu"></div>
                 </button>
                 <div className="dropdown-content">
-                 
                   <li>
                     <NavLink
                       style={{ textDecoration: "None" }}
-                      to="chat/mainPage"
+                      to="chat/fetchAllGroups"
                     >
-                      <div className="btn">Group Chat</div>
+                      <div className="btn">All Groups</div>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      style={{ textDecoration: "None" }}
+                      to="chat/createGroup"
+                    >
+                      <div className="btn">Create Group</div>
                     </NavLink>
                   </li>
                   <li>

@@ -1,33 +1,25 @@
 const sequelize=require('../util/database')
 const Sequelize=require('sequelize')
 
-const User=sequelize.define('User',{
+const Group=sequelize.define('Group',{
     id:{
         type:Sequelize.INTEGER,
         autoIncrement:true,
         allowNull:false,
         primaryKey:true
     },
-    name:{
+    groupName:{
         type:Sequelize.STRING,
         allowNull:false
-    },emailAddress:{
-        type:Sequelize.STRING,
-        allowNull:false
-    },password:{
-        type:Sequelize.STRING,
-        allowNull:false
-    },phoneNumber:{
-        type:Sequelize.STRING,
-        allowNull:false
-    },status:{
-        type:Sequelize.BOOLEAN,
-        defaultValue:false
     },
-    belongsToGroups:{
+    participants:{
         type:Sequelize.STRING,
-        allowNull:true
+        allowNull:false
+    },
+    admin:{
+        type:Sequelize.STRING,
+        allowNull:false
     }
 })
 
-module.exports=User
+module.exports=Group

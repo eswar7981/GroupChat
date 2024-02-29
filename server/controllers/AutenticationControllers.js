@@ -33,6 +33,7 @@ exports.GetSignupDetails = (req, res) => {
             emailAddress: email,
             phoneNumber:phoneNumber,
             password: hash,
+            belongsToGroups:','
           });
         });
         res.json({message:"signup successful"});
@@ -75,7 +76,7 @@ exports.GetLoginDetails = (req, response) => {
             
               const token = generateToken(res.id);
               res.update({status:true})
-              response.json({login:'success', token: token });
+              response.json({login:'success', token: token,email:email });
             } else {
               response.json({login:'failed'});
              

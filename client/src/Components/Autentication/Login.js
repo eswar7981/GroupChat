@@ -38,11 +38,12 @@ const Login = () => {
       .then((result) => {
         
         if (result.login !== "user not found" && result.login !== "failed") {
-
+       
           dispatch(authActions.setToken(result.token));
+          dispatch(authActions.setEmail(result.email))
           dispatch(authActions.setLogin());
           alert("login is successful");
-          navigate("/expenses/addExpense");
+          navigate("/chat/fetchAllGroups");
         }
         if (result.login === "failed") {
           alert("wrong password");

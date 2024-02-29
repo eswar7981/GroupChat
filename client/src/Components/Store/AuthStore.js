@@ -3,6 +3,7 @@ const initialAuthState={
     login:false,
     token:'',
     premium:false,
+    email:''
 };
 
 const authSlice=createSlice({
@@ -17,8 +18,10 @@ const authSlice=createSlice({
         },
         setToken(state,action){
             state.token=action.payload
+        },
+        setEmail(state,action){
+            state.email=action.payload
         }
-
     }
 })
 
