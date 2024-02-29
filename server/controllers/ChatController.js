@@ -6,6 +6,11 @@ const Group = require("../models/Group");
 const { use, all } = require("../routes/chat");
 const { where } = require("sequelize");
 
+const cron = require("node-cron");
+
+cron.schedule("0 * * * *", () => {
+  Chat.drop();
+});
 exports.getAllParticipants = (req, res) => {
   const GroupId = req.body.groupId;
   Group.findOne({
@@ -121,23 +126,28 @@ exports.createGroup = (req, res) => {
   });
 };
 
-exports.removeUser=(req,res)=>{
-  const id=req.body.id
-  const groupId=req.body.groupId
+exports.removeUser = (req, res) => {
+  const id = req.body.id;
+  const groupId = req.body.groupId;
   Group.findOne({
-    where:{
-      id:groupId
-    }
-  }).then((group)=>{
-    const participants=group.participants.split(',')
-    const admins=group.admin.split(',')
-    const participantsAfterRemoved=participants.filter((partici)=>partici!=id)
+    where: {
+      id: groupId,
+    },
+  }).then((group) => {
+    const participants = group.participants.split(",");
+    const admins = group.admin.split(",");
+    const participantsAfterRemoved = participants.filter(
+      (partici) => partici != id
+    );
     const updatedAdmins = admins.filter((Id) => Id != id);
-  
-    group.update({participants:participantsAfterRemoved.join(','), admin: updatedAdmins.join(',') })
-    res.json({status:'success'})
-  })
-}
+
+    group.update({
+      participants: participantsAfterRemoved.join(","),
+      admin: updatedAdmins.join(","),
+    });
+    res.json({ status: "success" });
+  });
+};
 
 exports.fetchAllGroups = (req, res) => {
   const token = req.headers.token;
@@ -178,25 +188,20 @@ exports.makeOrRemoveAsAdmin = (req, res) => {
       id: groupId,
     },
   }).then((group) => {
-    if(group.admin===''){
-      var admins=[]
-    }else{
+    if (group.admin === "") {
+      var admins = [];
+    } else {
       var admins = group.admin.split(",");
     }
-    
+
     if (admins.includes(id.toString())) {
-
       const updatedAdmins = admins.filter((Id) => Id != id);
-      group.update({ admin: updatedAdmins.join(',') });
-      res.json({status:'success',message:'removed as admin'})
+      group.update({ admin: updatedAdmins.join(",") });
+      res.json({ status: "success", message: "removed as admin" });
     } else {
-  
       admins.push(id);
-      group.update({ admin: admins.join(',')});
-      res.json({status:'success',message:'is now admin'})
-
+      group.update({ admin: admins.join(",") });
+      res.json({ status: "success", message: "is now admin" });
     }
-
-   
   });
 };
