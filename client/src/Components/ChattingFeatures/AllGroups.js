@@ -7,18 +7,11 @@ const AllGroups = () => {
   const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
   const token = useSelector((state) => state.auth.token);
-  const [noData,setNoData]=useState(false)
-
+  const [noData, setNoData] = useState(false);
 
   useEffect(() => {
-    if(localStorage.getItem('groups')){
-      const groups=JSON.parse(localStorage.getItem('groups'))
-            setGroups(groups)
-            setNoData(true)
-    }else{
-
-    }
-    fetch("http://localhost:5000/chat/fetchAllGroups", {
+   
+    fetch("http://16.171.206.103/chat/fetchAllGroups", {
       method: "GET",
       headers: {
         token: token,
@@ -28,16 +21,12 @@ const AllGroups = () => {
         return res.json();
       })
       .then((result) => {
-        if (result.status === "success") {
-         
-            localStorage.setItem('groups',JSON.stringify(result.groups))
-            setGroups(result.groups)
-            setNoData(true)
-         
-         
-        }
-        else{
-
+        if (result.status === "success" && result.groups!==null) {
+          localStorage.setItem("groups", JSON.stringify(result.groups));
+          
+          setGroups(result.groups);
+          setNoData(true);
+        } else {
         }
       })
       .catch((err) => {
@@ -52,9 +41,9 @@ const AllGroups = () => {
         style={{ backgroundImage: `url(../images/wallpaper.jpg)` }}
       >
         <div className="groups">
-         {!noData ? <p>No Groups Found</p> : <p>Groups</p>}
+          {!noData ? <p>No Groups Found</p> : <p>Groups</p>}
         </div>
-        {groups &&
+        {groups.length>1 &&
           groups.map((group) => (
             <NavLink
               to={`group/:${group.id}`}

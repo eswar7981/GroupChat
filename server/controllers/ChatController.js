@@ -2,89 +2,23 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Chat = require("../models/Chat");
 const Group = require("../models/Group");
+const io=require('socket.io')
 
 const { use, all } = require("../routes/chat");
 const { where } = require("sequelize");
 
 const cron = require("node-cron");
 
-cron.schedule("0 * * * *", () => {
+
+cron.schedule("0 0 * * *", () => {
   Chat.drop();
-});
-exports.getAllParticipants = (req, res) => {
-  const GroupId = req.body.groupId;
-  Group.findOne({
-    where: {
-      id: GroupId,
-    },
-  }).then((group) => {
-    users = [];
-    group.participants.split(",").map((id) => {
-      async function getEachParticipant() {
-        const data = await User.findOne({
-          where: {
-            id: id,
-          },
-        });
-        const userData = await data;
-        users = [...users, userData];
-      }
-      getEachParticipant();
-    });
+})
 
-    setTimeout(() => {
-      res.json({ status: "success", users: users, admin: group.admin });
-    }, 1000);
-  });
-};
-
-exports.AllGroupParticipants = (req, res) => {
-  const groupId = req.body.groupId;
-  console.log(groupId, "all group members");
-  Group.findOne({
-    where: {
-      id: groupId,
-    },
-  }).then((memebers) => {
-    return res.json({ status: "success", participants: memebers });
-  });
-};
-
-exports.addChat = (req, res) => {
-  const token = req.body.token;
-  const message = req.body.message;
-  const sentBy = req.body.sentBy;
-  const groupId = req.body.groupId;
-  Group.findOne({
-    where: {
-      id: groupId,
-    },
-  }).then((group) => {
-    Chat.create({ message: message, sentBy: sentBy, GroupId: groupId });
-  });
-  ("const id = jwt.verify(token, `${process.env.SECRET_KEY}`);");
-};
-
-exports.fetchChat = (req, res) => {
-  const groupId = req.body.groupId;
-  console.log(groupId);
-  Chat.findAll({
-    where: {
-      GroupId: groupId,
-    },
-  })
-    .then((messages) => {
-      return res.json({ status: "success", messages: messages });
-    })
-    .catch(() => {
-      return res.json({ status: "failed" });
-    });
-};
 
 exports.createGroup = (req, res) => {
   const groupName = req.body.name;
-  const participants = req.body.participants;
-  const admin = req.body.admins;
+  const participants = req.body.participants.slice(0,req.body.participants.length-1);
+  const admin = req.body.admins.slice(0,req.body.admins.length-1);
   const token = req.body.token;
   const id = jwt.verify(token, `${process.env.SECRET_KEY}`);
   User.findOne({
@@ -92,17 +26,17 @@ exports.createGroup = (req, res) => {
       id: id.userId,
     },
   }).then((user) => {
-    const addedUserToParticipants = participants + user.id.toString();
-    const addedAdmin = admin + user.id.toString();
+
+  
     Group.create({
       groupName: groupName,
-      participants: addedUserToParticipants,
-      admin: addedAdmin,
+      participants: participants,
+      admin:admin,
     })
       .then(() => {
         Group.count().then((count) => {
           console.log("count", count);
-          addedUserToParticipants.split(",").map((i) => {
+          participants.split(",").map((i) => {
             const currUser = i;
 
             User.findOne({
@@ -129,6 +63,7 @@ exports.createGroup = (req, res) => {
 exports.removeUser = (req, res) => {
   const id = req.body.id;
   const groupId = req.body.groupId;
+  const userId=req.body.userId;
   Group.findOne({
     where: {
       id: groupId,
@@ -179,6 +114,12 @@ exports.fetchAllGroups = (req, res) => {
     }
   });
 };
+
+exports.getAllUsers=(req,res)=>{
+  User.findAll().then((users)=>{
+    res.json({status:'success',users:users})
+  })
+}
 
 exports.makeOrRemoveAsAdmin = (req, res) => {
   const id = req.body.id;

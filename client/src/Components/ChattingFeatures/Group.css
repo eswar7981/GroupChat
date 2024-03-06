@@ -1,13 +1,12 @@
 .border{
     display: flex;
     justify-content: center;
-   
     border:solid;
     border-color: #00957E;
     border-width: 3px;
     border-radius: 30px;
     margin: 10vh;
-    width:40vw;
+    width:50vw;
     height: 70vh;
     align-items: center;
     overflow-x: hidden;
@@ -17,9 +16,10 @@
     scrollbar-color: #00AC5D  #c4d58e;
     scroll-padding-block:30px;
     position: absolute;
-    margin-left: 200px;
+    margin-left: 100px;
     z-index: 2;
-    margin-top: -30px;
+    margin-top: -40px;
+    background: linear-gradient(150deg, #bfe407 60%, #36ae07 60%);
 }
 
 
@@ -43,24 +43,26 @@
     margin-top: -5px;
 }
 
-.profiles1{
+.profiles12{
     display: flex;
     justify-content: center;
-   
+}
+
+.prof12{
 }
 
 
 .messageCol{
     display: flex;
     position: absolute;
-    margin-top: 90px;
+    margin-top: 77px;
     z-index: 77;
     padding-left: 580px;
 }
 
 
 
-.prof1 {
+.prof12 {
 display: flex;
 justify-content: center;
 width: 251px;
@@ -77,14 +79,16 @@ box-shadow: 2px 5px 10px rgb(94, 91, 89);
 
 .msgCol{
     display:block;
-  margin-left: -5px;
+  margin-left: 10px;
 margin-right: 400px;
+
+
 }
 
 
 .msgCol1{
     display:block;
-    margin-left: 380px;
+    margin-left: 320px;
  
 }
 
@@ -94,12 +98,27 @@ margin-right: 400px;
     padding-bottom: 20px;
     border-radius: 10px;
     font-weight: bolder;
-    color: black;
+    color: white;
+    box-shadow: 2px 5px 10px rgb(74, 69, 69)
+    
 }
 
 .sentBy{
     margin-left: 0px;
   }
+
+
+.fileUpload{
+    position: absolute;
+    margin-left: 220px;
+    margin-top: 330px;
+    z-index: 9999;
+
+}
+
+
+
+
 
 .sentBy p{
     font-size: 15px;
@@ -114,14 +133,15 @@ margin-right: 400px;
     font-size: 15px;
 }
 
-.p1{
+.p12{
     border-radius: 300px;
     padding:9px 16px;
     z-index:1;
     border: solid;
     border-width: 3px;
     margin-left: -210px;
-  
+    position: absolute;
+    margin-top: 12px;
 }
 
 .p2{
@@ -145,6 +165,7 @@ margin-right: 400px;
     border: solid;
     border-color:black;
     border-width: 1.4px;
+    border-radius: 5px;
 }
 
 .remove1:hover{
@@ -160,7 +181,7 @@ margin-right: 400px;
     justify-content: center;
     gap:5px;
   position: absolute;
-    margin-left: -370px;
+    margin-left: -420px;
     z-index: 33;
     margin-top: 300px;
 
@@ -170,8 +191,9 @@ margin-right: 400px;
     font-size: larger;
     border-radius: 20px;
     height: 25px;
-    width: 480px;
+    width: 555px;
     border: solid;
+    background-color: #00AC5D;
 }
 
 .icon button{
@@ -185,4 +207,24 @@ margin-right: 400px;
 }
 .icon button:active{
     background-color: white;
+}
+
+
+.submit12{
+    margin-top:-2px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border:solid;
+    border-color: black;
+    background-color:rgb(82, 155, 82);
+    color:white
+}
+
+.submit1{
+    border-radius: 20px;
+    border: solid;
+    background-color: rgb(64, 199, 64);
+    color: white;
+    border-color: black;
+    margin-left: 100px;
 }

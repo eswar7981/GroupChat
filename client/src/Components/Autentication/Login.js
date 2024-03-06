@@ -25,7 +25,7 @@ const Login = () => {
   async function submitHandler(e) {
     e.preventDefault();
 
-    fetch("http://localhost:5000/autentication/login", {
+    fetch("http://16.171.206.103/autentication/login", {
       method: "POST",
       body: JSON.stringify(loginDetails),
       headers: {
@@ -103,11 +103,7 @@ const Login = () => {
           <div className="button">
             <button type="submit">login</button>
           </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <NavLink to="/autentication/forgotPassword">
-              <button className="modeChange">Forgot Password</button>
-            </NavLink>
-          </div>
+         
           <div style={{ display: "flex", justifyContent: "center" }}>
             <NavLink to="/autentication/signUp">
               <button className="modeChange" style={{ marginTop: "5px" }}>

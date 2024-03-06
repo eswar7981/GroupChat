@@ -261,13 +261,13 @@ background-color: rgb(68, 161, 68);
 }
 
 
-.participants1{
+.participants{
 
     margin: 10vh;
     border-radius: 10px;
     border:solid;
     border-width: 1.5px;
-    width: 35vw;
+    width: 10vw;
     height: 60vh;
     background-color:rgb(102, 157, 102);
     position:absolute;
@@ -275,22 +275,25 @@ background-color: rgb(68, 161, 68);
  
 }
 
-.profiles1{
+.profiles{
     display: flex;
     justify-content: center;
+    display:absolute;
+    margin-left: -120px;
+}
+
+.profile{
+    display: block;
 }
 
 
-.messages1{
-  
-}
 
 
 
-.prof1 {
+.prof {
 display: flex;
 justify-content: center;
-gap:150px;
+gap:50px;
 background-color: white;
 margin-top: 5px;
 padding-left: 10px;
@@ -298,18 +301,20 @@ padding-right: 70px;
 border-radius: 40px;
 padding-top: 4px;
 box-shadow: 2px 5px 10px rgb(94, 91, 89);
-
+width: 200px;
+height: 70px;
 }
 
 .p1{
     border-radius: 300px;
-   
     padding:9px 16px;
-    z-index:1
+    z-index:1;
+    position: absolute;
+    margin-left: -160px;
+    margin-top:13px;
 }
-
 .p2{
-    position:absolute
+    position: absolute;
 }
 
 .p3{

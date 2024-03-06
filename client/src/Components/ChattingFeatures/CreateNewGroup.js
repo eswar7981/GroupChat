@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from "react";
 import "./CreateNewGroup.css";
 import { useSelector } from "react-redux";
-
+import { useMemo } from "react";
 const CreateNewGroup = () => {
   const [allParticipants, setAllParticipants] = useState([]);
   const token = useSelector((state) => state.auth.token);
+  const [groupParticipants, setGroupParticipants] = useState([]);
+  const email = useSelector((state) => state.auth.email);
+  const [groupName, setGroupName] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/chat/getParticipants", {
+    fetch("http://16.171.206.103/chat/getAllUsers", {
       method: "GET",
-      headers: {
-        token: token,
-      },
     })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         if (data.status === "success") {
-          console.log(data.participants);
-          setAllParticipants(data.participants);
+          console.log(data.users);
+          setAllParticipants(data.users);
+          let me = data.users.filter((user) => user.emailAddress === email);
+          me[0].admin = true;
+          setGroupParticipants([...me]);
         }
       });
   }, []);
 
-  const generateColor = () => {
+  const generateColor = useMemo(() => {
     const randomColor = Math.floor(Math.random() * 16777215).toString(16);
     return "#" + randomColor;
-  };
-
-  const [groupParticipants, setGroupParticipants] = useState([]);
-  const [groupName, setGroupName] = useState("");
+  }, []);
 
   const makeAsAdmin = (e, profile) => {
     e.preventDefault();
@@ -77,66 +77,79 @@ const CreateNewGroup = () => {
 
   const groupHandler = (e) => {
     e.preventDefault();
-    var admins=''
-    groupParticipants.map((partici) => {
-      if (partici.admin) {
-        admins=admins+`${partici.id}` + ","
+    if(groupName===''){
+      alert("add group Name")
+    }
+    else{
+      if(groupParticipants.length===1){
+
+        alert('add atleast one more participant')
       }
-    });
-
-
-    if (groupParticipants.length === 0) {
-      alert("add atleast One participant");
-    } else {
-      const ids = groupParticipants.reduce((data, user) => {
-        return (data = data + user.id + ",");
-      }, "");
-
-      fetch("http://localhost:5000/chat/createGroup", {
-        method: "POST",
-        body: JSON.stringify({
-          name: groupName,
-          participants: ids,
-          token: token,
-          admins:admins
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((result) => {
-          if (result.status === "success") {
-            alert(`${groupName} Group is created successfully`);
-            fetch("http://localhost:5000/chat/getParticipants", {
-              method: "GET",
-              headers: {
-                token: token,
-              },
-            })
-              .then((res) => {
-                return res.json();
-              })
-              .then((data) => {
-                if (data.status === "success") {
-                  console.log(data.participants);
-                  setAllParticipants(data.participants);
-                }
-              });
-          } else {
-            alert("Sorry, group creation is unsuccessful");
+      else{
+  
+        var admins = "";
+        groupParticipants.map((partici) => {
+          if (partici.admin) {
+            admins = admins + `${partici.id}` + ",";
           }
-        })
-        .catch((err) => {
-          console.log(err);
         });
-
-      setGroupParticipants([]);
-      setGroupName("");
+    
+        if (groupParticipants.length === 0) {
+          alert("add atleast One participant");
+        } else {
+          const ids = groupParticipants.reduce((data, user) => {
+            return (data = data + user.id + ",");
+          }, "");
+    
+          fetch("http://localhost:5000/chat/createGroup", {
+            method: "POST",
+            body: JSON.stringify({
+              name: groupName,
+              participants: ids,
+              token: token,
+              admins: admins,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => {
+              return res.json();
+            })
+            .then((result) => {
+              if (result.status === "success") {
+                alert(`${groupName} Group is created successfully`);
+                fetch("http://localhost:5000/chat/getParticipants", {
+                  method: "GET",
+                  headers: {
+                    token: token,
+                  },
+                })
+                  .then((res) => {
+                    return res.json();
+                  })
+                  .then((data) => {
+                    if (data.status === "success") {
+                      console.log(data.participants);
+                      setAllParticipants(data.participants);
+                    }
+                  });
+              } else {
+                alert("Sorry, group creation is unsuccessful");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+    
+          setGroupParticipants([]);
+          setGroupName("");
+        }
+  
+      }
       
     }
+    
   };
 
   const groupNameHandler = (e) => {
@@ -203,36 +216,38 @@ const CreateNewGroup = () => {
           </div>
         </div>
 
-        <div className="groupParticipants1">
-          <div className="participants1">
-            <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="groupParticipants12">
+          <div className="participants">
+            <div style={{ display: "flex",marginLeft:'-70px' }}>
               <h3>participants</h3>
             </div>
 
-            <div className="profiles1">
-              <div className="profile1">
+            <div className="profiles">
+              <div className="profile">
                 {groupParticipants &&
                   groupParticipants.map((profile) => (
-                    <div className="prof1">
+                    <div className="prof">
                       <p
                         className="p1"
-                        style={{ backgroundColor: generateColor() }}
+                        style={profile.emailAddress===email ? {backgroundColor:'green'} :{ backgroundColor: generateColor }}
                       >
                         {profile.name[0]}
                       </p>
-                      <p className="p2">{profile.name}</p>
+                      <p style={{marginLeft:'0px',fontWeight:'bold',marginTop:'20px'}}>{profile.name}</p>
                       <button
                         onClick={(e) => removeParticipant(e, profile)}
                         className="remove"
+                        style={{position:'absolute',marginLeft:'160px',marginTop:'22px'}}
                       >
                         remove
                       </button>
                       <button
                         className="adminbutton"
+                      
                         style={
                           profile.admin
-                            ? { backgroundColor: "#28BB00" }
-                            : { backdroundColor: "white" }
+                            ? { backgroundColor: "#28BB00",marginTop:'22px',marginLeft:'280px'}
+                            : { backdroundColor: "white",marginTop:'22px',marginLeft:'280px' }
                         }
                         onClick={(e) => makeAsAdmin(e, profile)}
                       >

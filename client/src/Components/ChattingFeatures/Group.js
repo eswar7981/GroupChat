@@ -2,15 +2,17 @@ import React, { useMemo } from "react";
 import { useNavigate, useNavigation, useParams } from "react-router-dom";
 
 import "./Group.css";
-
+import io from "socket.io-client";
 import { useSelector } from "react-redux";
 
 import { useEffect, useState } from "react";
 import e from "cors";
 
 const Group = ({ id }) => {
+  const socket = io("http://localhost:5000");
   const navigate = useNavigate();
   const params = useParams();
+
   const [admins, setAdmins] = useState([]);
   const [messages, setMessages] = useState([]);
   const [profiles, setProfiles] = useState([]);
@@ -19,107 +21,88 @@ const Group = ({ id }) => {
   const email = useSelector((state) => state.auth.email);
   const [userName, setUserName] = useState([]);
   const [name, setName] = useState("");
+  const [finalFile, setFinalFile] = useState(null);
+  const [file, setFile] = useState(null);
+  const [status, setStatus] = useState(
+    "initial" | "uploading" | "success" | "fail"
+  );
+
   useEffect(() => {
-    fetch("http://localhost:5000/chat/getParticipants", {
-      method: "POST",
-      body: JSON.stringify({ groupId: params.groupId[1] }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setProfiles(data.users);
-        const me = data.users.filter((user) => user.emailAddress === email);
-        setUserName(me);
+    const details = {
+      groupId: params.groupId[1],
+      token: token,
+    };
+    socket.emit("getPartcipants", details.groupId);
+    socket.on("recievePartcipants", (data) => {
+      setProfiles(data);
+      const user = data.filter((user) => user.emailAddress === email);
+      setName(user[0].name);
+      setUserName(user[0]);
+    });
 
-        setName(me[0].name);
-        const admins = JSON.parse(`[${data.admin}]`);
-        setAdmins(admins);
-      });
+    socket.emit("getAdmins", details);
+    socket.on("adminData", (data) => {
+      setAdmins(data.split(","));
+    });
 
-    fetch("http://localhost:5000/chat/getMessages", {
-      method: "POST",
-      body: JSON.stringify({
-        groupId: params.groupId[1],
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setMessages(data.messages);
-        setMessage("");
-      });
+    socket.emit("getMessage", details.groupId);
+    socket.on("data", (mess) => {
+      setMessages(mess);
+      socket.emit("disconnection");
+    });
   }, []);
+
+  const handleFileChange = (e) => {
+    e.preventDefault();
+    if (e.target.files) {
+      setStatus("initial");
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (file) {
+      setStatus("uploading");
+      console.log(file.toString("base64"));
+      socket.emit("image", file.toString("base64"));
+      setFinalFile(null);
+    }
+  };
 
   async function sendMessageHandler(e) {
     e.preventDefault();
-    console.log("hello message is sent");
-    const addMess = await fetch("http://localhost:5000/chat/addMessage", {
-      method: "POST",
-      body: JSON.stringify({
-        groupId: params.groupId[1],
-        message: message,
-        token: token,
-        sentBy: name,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
-      setMessage("");
+
+    const details = {
+      groupId: params.groupId[1],
+      message: message,
+      token: token,
+      sentBy: name,
+    };
+
+    await socket.emit("sendMessage", details);
+
+    await socket.emit("getPartcipants", details.groupId);
+    await socket.on("recievePartcipants", (data) => {
+      setProfiles(data);
     });
 
-    fetch("http://localhost:5000/chat/getParticipants", {
-      method: "POST",
-      body: JSON.stringify({
-        groupId: params.groupId[1],
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setProfiles(data.userData);
+    setTimeout(() => {
+      socket.emit("getMessage", details.groupId);
+      socket.on("data", (mess) => {
+        setMessages(mess);
+        socket.emit("disconnection");
       });
+    }, 500);
 
-    fetch("http://localhost:5000/chat/getMessages", {
-      method: "POST",
-      body: JSON.stringify({
-        groupId: params.groupId[1],
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setMessages(data.messages);
-        setMessage("");
-      });
+    setMessage("");
   }
 
   const makeAsAdmin = (e, profile) => {
     e.preventDefault();
-    if (profile.email === email) {
+    if (profile.emailAddress === email) {
       alert("you cannot be admin by yourself");
     } else {
-      fetch("http://localhost:5000/chat/makeOrRemoveAsAdmin", {
+      fetch("http://16.171.206.103/chat/makeOrRemoveAsAdmin", {
         method: "POST",
         body: JSON.stringify({
           groupId: params.groupId[1],
@@ -133,23 +116,35 @@ const Group = ({ id }) => {
           return res.json();
         })
         .then((data) => {
-          if (data.message === "removed as admin") {
-            alert(`${profile.name} ${data.message}`);
-          } else {
-            alert(`${profile.name} ${data.message}`);
-          }
+          setTimeout(() => {
+            const details = {
+              groupId: params.groupId[1],
+              token: token,
+            };
+            socket.emit("getAdmins", details);
+            socket.on("adminData", (data) => {
+              setAdmins(data.split(","));
+            });
+            if (data.message === "removed as admin") {
+              alert(`${profile.name} ${data.message}`);
+            } else {
+              alert(`${profile.name} ${data.message}`);
+            }
+          }, 500);
         });
     }
   };
 
   const removeUser = (e, profile) => {
     e.preventDefault();
-    if (admins.includes(userName[0].id)) {
-      fetch("http://localhost:5000/chat/removeUser", {
+
+    if (admins.includes(userName.id.toString())) {
+      fetch("http://16.171.206.103/chat/removeUser", {
         method: "POST",
         body: JSON.stringify({
           groupId: params.groupId[1],
           id: profile.id,
+          userId: userName.id.toString(),
         }),
         headers: {
           "Content-Type": "application/json",
@@ -159,6 +154,20 @@ const Group = ({ id }) => {
           return res.json();
         })
         .then((data) => {
+          const details = {
+            groupId: params.groupId[1],
+            message: message,
+            token: token,
+            sentBy: name,
+          };
+          setTimeout(() => {
+            socket.emit("getPartcipants", details.groupId);
+            socket.on("recievePartcipants", (data) => {
+              console.log(data);
+              setProfiles(data);
+            });
+          }, 1000);
+
           alert(`${profile.name} is removed from group`);
         });
     } else {
@@ -185,7 +194,9 @@ const Group = ({ id }) => {
       <div className="backbutton">
         <button onClick={backButtonHandler}>⬅Back</button>
       </div>
-      <div></div>
+      <div className="groupName">
+        <p></p>
+      </div>
 
       <div className="border">
         <div>
@@ -201,7 +212,6 @@ const Group = ({ id }) => {
                         <div className="msg">{msg.message}</div>
                         <div className="sentBy1">
                           <p>-You</p>
-                         
                         </div>{" "}
                       </div>{" "}
                     </>
@@ -209,12 +219,11 @@ const Group = ({ id }) => {
                     <>
                       {" "}
                       <div className="msgCol">
-                      <div className="msg">{msg.message}</div>
-                      <div className="sentBy">
-                        <p>-{msg.sentBy}</p>
-                      </div>{" "}
+                        <div className="msg">{msg.message}</div>
+                        <div className="sentBy">
+                          <p>-{msg.sentBy}</p>
+                        </div>{" "}
                       </div>
-                     
                     </>
                   )}
                 </>
@@ -234,37 +243,59 @@ const Group = ({ id }) => {
                 value={message}
               ></input>
             </div>
-            <div className="icon">
-              <button type="submit">⮞</button>
+            <div className="input-group">
+              <button className="submit12">⮞</button>
             </div>
           </div>
         </div>
       </form>
+
+      <div className="fileUpload">
+        <div className="icon">
+          <input id="file" type="file" onChange={handleFileChange} />
+        </div>
+
+        {file && (
+          <button onClick={handleUpload} className="submit">
+            submit
+          </button>
+        )}
+      </div>
+
       <div style={{ display: "flex" }}>
         <div className="participants12">
           <div style={{ display: "flex", justifyContent: "center" }}>
             <h3>participants</h3>
           </div>
 
-          <div className="profiles1">
-            <div className="profile1">
+          <div className="profiles12">
+            <div className="profile12">
               {profiles &&
                 profiles.map((profile) => (
-                  <div className="prof1">
+                  <div
+                    className="prof12"
+                    style={{ marginTop: "12px", height: "70px" }}
+                  >
                     {profile.status ? (
                       <p
-                        className="p1"
-                        style={{
-                          backgroundColor: generateColor,
-                          borderColor: "green",
-                          color: "white",
-                        }}
+                        className="p12"
+                        style={
+                          profile.emailAddress === email
+                            ? {
+                                backgroundColor: "yellow",
+                                borderColor: "green",
+                              }
+                            : {
+                                backgroundColor: generateColor,
+                                borderColor: "green",
+                              }
+                        }
                       >
                         {profile.name[0]}
                       </p>
                     ) : (
                       <p
-                        className="p1"
+                        className="p12"
                         style={{
                           backgroundColor: generateColor,
                           borderColor: "red",
@@ -277,15 +308,19 @@ const Group = ({ id }) => {
                     )}
 
                     {profile.emailAddress == email ? (
-                      <p className="p2">Me</p>
+                      <p className="p23">Me</p>
                     ) : (
-                      <p className="p2">{profile.name}</p>
+                      <p className="p23">{profile.name}</p>
                     )}
-                    {admins.includes(profile.id) ? (
+                    {admins && admins.includes(profile.id.toString()) ? (
                       <button
                         className="admin"
                         onClick={(e) => makeAsAdmin(e, profile)}
-                        style={{ backgroundColor: "green", color: "white" }}
+                        style={{
+                          backgroundColor: "green",
+                          color: "white",
+                          marginTop: "20px",
+                        }}
                       >
                         admin
                       </button>

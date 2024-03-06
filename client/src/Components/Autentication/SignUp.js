@@ -43,7 +43,7 @@ const SignUp = () => {
     }
     else{
     if (SignUpDetails.password == SignUpDetails.confirmPassword) {
-      fetch("http://localhost:5000/autentication/signUp", {
+      fetch("http://16.171.206.103/autentication/signUp", {
         method: "POST",
         body: JSON.stringify(SignUpDetails),
         headers: {
