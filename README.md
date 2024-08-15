@@ -1,7 +1,5 @@
 # Group Chat Application:
 
-### live link : https://event-management158.netlify.app
-
 ## 1. PROJECT OVERVIEW:
 
 <h4>Group Chat app is a user specific web application where user can chat privately 🙎‍♂️ with others or create a group and have conversations with others 👨‍👨‍👦‍👦.<h4/>
@@ -18,12 +16,12 @@
 
 ### 2.1. Clone Repository
 ```
-git clone https://github.com/eswar7981/EventManagement.git
+git clone https://github.com/eswar7981/GroupChatNodeJs.git
 ```
 ### 2.2 Move to the Directory
 Open two terminals or use split terminal and move to the following directory in both terminals
 ```
-cd EventManagement
+cd GroupChatNodeJs
 ```
 
 ### 2.3 Setup
@@ -62,13 +60,6 @@ npm run dev
 
 ### Backend  : Express <img src="https://raw.githubusercontent.com/devicons/devicon/6910f0503efdd315c8f9b858234310c06e04d9c0/icons/express/express-original-wordmark.svg" width="40" height="40"/> Node <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> , bcrypt, JWT
 
-
-## Deployment:
-
-
-### Frontend : Netlify
-
-### Backend : Render
 
 
 
