@@ -10,7 +10,7 @@ const CreateNewGroup = () => {
   const [groupName, setGroupName] = useState("");
 
   useEffect(() => {
-    fetch("http://16.171.206.103/chat/getAllUsers", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/getAllUsers`, {
       method: "GET",
     })
       .then((res) => {
@@ -101,7 +101,7 @@ const CreateNewGroup = () => {
             return (data = data + user.id + ",");
           }, "");
     
-          fetch("http://localhost:5000/chat/createGroup", {
+          fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/createGroup`, {
             method: "POST",
             body: JSON.stringify({
               name: groupName,
@@ -119,7 +119,7 @@ const CreateNewGroup = () => {
             .then((result) => {
               if (result.status === "success") {
                 alert(`${groupName} Group is created successfully`);
-                fetch("http://localhost:5000/chat/getParticipants", {
+                fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/getParticipants`, {
                   method: "GET",
                   headers: {
                     token: token,
@@ -206,13 +206,16 @@ const CreateNewGroup = () => {
                           </div>
                         </div>
                       ))}
-                    <div className="create">
-                      <button onClick={groupHandler}>Create Group</button>
-                    </div>
+                   
                   </div>
+
+                 
                 </div>
               </div>
             </div>
+            <div className="create">
+                      <button onClick={groupHandler}>Create Group</button>
+                    </div>
           </div>
         </div>
 

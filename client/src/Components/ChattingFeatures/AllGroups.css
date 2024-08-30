@@ -11,9 +11,15 @@
 }
 
 
+.group__page{
+    justify-content: center;
+    margin-left: 300px;
+}
+
 .groups {
     display:flex;
     justify-content: center;
+    
 }
 
 .groups p{
@@ -28,7 +34,7 @@
     margin-left: 40px;
     margin-top: 20px;
     border-radius: 5px;
-    background-color: gray;
+    background-color: #00AC5D;
     color: white;
     border: solid;
     border-color:green;

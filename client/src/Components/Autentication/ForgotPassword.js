@@ -10,7 +10,7 @@ const ForgotPassword = (e) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/autentication/forgotPassword", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/autentication/forgotPassword`, {
       method: "POST",
       body: JSON.stringify({
         email: email,

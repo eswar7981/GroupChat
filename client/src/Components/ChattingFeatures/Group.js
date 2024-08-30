@@ -27,6 +27,10 @@ const Group = ({ id }) => {
     "initial" | "uploading" | "success" | "fail"
   );
 
+
+
+  
+
   useEffect(() => {
     const details = {
       groupId: params.groupId[1],
@@ -79,30 +83,34 @@ const Group = ({ id }) => {
       sentBy: name,
     };
 
-    await socket.emit("sendMessage", details);
+   socket.emit("sendMessage", details)
 
-    await socket.emit("getPartcipants", details.groupId);
-    await socket.on("recievePartcipants", (data) => {
+     socket.emit("getPartcipants", details.groupId);
+    socket.on("recievePartcipants", (data) => {
       setProfiles(data);
-    });
+    })
+    setMessage("");
 
-    setTimeout(() => {
-      socket.emit("getMessage", details.groupId);
+
+    setInterval(()=>{
+      socket.emit("getMessage", params.groupId[1]);
       socket.on("data", (mess) => {
         setMessages(mess);
         socket.emit("disconnection");
       });
-    }, 500);
+    },500)
 
-    setMessage("");
   }
+
+
+  
 
   const makeAsAdmin = (e, profile) => {
     e.preventDefault();
     if (profile.emailAddress === email) {
       alert("you cannot be admin by yourself");
     } else {
-      fetch("http://16.171.206.103/chat/makeOrRemoveAsAdmin", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/makeOrRemoveAsAdmin`, {
         method: "POST",
         body: JSON.stringify({
           groupId: params.groupId[1],
@@ -139,7 +147,7 @@ const Group = ({ id }) => {
     e.preventDefault();
 
     if (admins.includes(userName.id.toString())) {
-      fetch("http://16.171.206.103/chat/removeUser", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/removeUser`, {
         method: "POST",
         body: JSON.stringify({
           groupId: params.groupId[1],
@@ -190,7 +198,7 @@ const Group = ({ id }) => {
     navigate("/chat/fetchAllGroups");
   };
   return (
-    <>
+    <div>
       <div className="backbutton">
         <button onClick={backButtonHandler}>⬅Back</button>
       </div>
@@ -250,17 +258,7 @@ const Group = ({ id }) => {
         </div>
       </form>
 
-      <div className="fileUpload">
-        <div className="icon">
-          <input id="file" type="file" onChange={handleFileChange} />
-        </div>
-
-        {file && (
-          <button onClick={handleUpload} className="submit">
-            submit
-          </button>
-        )}
-      </div>
+      
 
       <div style={{ display: "flex" }}>
         <div className="participants12">
@@ -348,7 +346,7 @@ const Group = ({ id }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

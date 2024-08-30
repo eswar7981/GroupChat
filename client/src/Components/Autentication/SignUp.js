@@ -43,7 +43,7 @@ const SignUp = () => {
     }
     else{
     if (SignUpDetails.password == SignUpDetails.confirmPassword) {
-      fetch("http://16.171.206.103/autentication/signUp", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/autentication/signUp`, {
         method: "POST",
         body: JSON.stringify(SignUpDetails),
         headers: {

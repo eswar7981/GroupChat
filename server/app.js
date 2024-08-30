@@ -29,9 +29,7 @@ const accessLog = fs.createWriteStream(path.join(__dirname, "access.log"), {
 app.use(helmet());
 app.use(morgan("combined", { stream: accessLog }));
 app.use(
-  cors({
-    origin: "http://16.171.206.103",
-  })
+  cors()
 );
 app.use(express.json());
 app.use(express.static("images"));

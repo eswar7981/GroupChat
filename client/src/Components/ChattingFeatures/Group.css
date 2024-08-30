@@ -19,8 +19,7 @@
     margin-left: 100px;
     z-index: 2;
     margin-top: -40px;
-    background: linear-gradient(150deg, #bfe407 60%, #36ae07 60%);
-}
+    }
 
 
 
@@ -93,13 +92,13 @@ margin-right: 400px;
 }
 
 .msg{
-    background-color: rgb(49, 162, 49);
+    background-color: rgb(86, 202, 86);
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 10px;
     font-weight: bolder;
     color: white;
-    box-shadow: 2px 5px 10px rgb(74, 69, 69)
+    box-shadow: 2px 5px 10px rgb(161, 160, 160)
     
 }
 
@@ -193,7 +192,6 @@ margin-right: 400px;
     height: 25px;
     width: 555px;
     border: solid;
-    background-color: #00AC5D;
 }
 
 .icon button{

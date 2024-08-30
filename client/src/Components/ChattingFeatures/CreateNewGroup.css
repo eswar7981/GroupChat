@@ -76,25 +76,24 @@ padding-bottom: 100px;
 }
 
 .create {
-   
-   
-    height: 35px;
-    
- 
+   position: absolute;
+    margin-top: 220px;
+ margin-left: 140px;
 }
 
 .create button:hover{
     border-color: black;
-    background-color:green;
+    background-color:rgb(7, 112, 7);
 }
 
 .create button{
-    background-color: rgb(75, 147, 175);
+    background-color:green;
     border-radius: 30px;
     border: solid;
     border-color: white;
     color:white;
-    padding: 5px 5px;
+    padding: 15px 15px;
+    width: 100px;
 }
 
 .form1{

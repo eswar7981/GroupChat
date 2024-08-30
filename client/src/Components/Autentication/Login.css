@@ -1,60 +1,67 @@
 .form {
-    display:inline-flex;
-    }
+  display:inline-flex;
+  }
 
 .formBoundary{
-    display:inline-grid;
-    justify-content: center;
-    border: solid;
-    border-radius: 5px;
-    padding: 20px;
-    background-color: rgb(121, 150, 121);
-  
+  display:inline-grid;
+  justify-content: center;
+  border: solid;
+  border-radius: 5px;
+  border-color: rgb(25, 107, 25);
+  padding-bottom: 100px;
+  padding-left: 100px;
+  padding-top: 100px;
+  padding-right: 100px;
+  background-color: rgb(255, 255, 255);
+
 }
 
 .button {
-    display: flex;
-    margin-top: 25px;
-   justify-content: end;
+  display: flex;
+  margin-top: 25px;
+ justify-content: end;
 
 }
 
 .inputs {
-    display: grid;
-    gap:10px;
-    padding-left: 10px;
+  display: grid;
+  gap:10px;
+  padding-left: 10px;
 }
 
 .labels {
-    display: grid;
-    gap:10px
+  display: grid;
+  gap:10px
 }
 
 .labels label{
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .modeChange{
-    width: 240px;
-    height: 25px;
-    margin-top:30px;
-    border-radius: 3px;
-    background-color: rgb(98, 98, 226);
+  width: 240px;
+  height: 25px;
+  margin-top:30px;
+  border-radius: 3px;
+  background-color: rgb(52, 150, 19);
 color: white;
-    
 }
 
 .button button{
-    color: white;
-    border-radius: 3px;
-    background-color: rgb(98, 98, 226);
+  color: white;
+  border-radius: 3px;
+  border: solid;
+  border-width: 1px;
+  border-color: rgb(9, 58, 9);
+  padding: 3px;
+  background-color: rgb(16, 76, 16);
 }
 
 .button :active{
-    background-color: rgb(61, 61, 223);
-    
+  background-color: rgb(20, 114, 38);
+  
 }
 
 .showPassword p{
-    font-size: 15px;
+  font-size: 15px;
 }

@@ -12,7 +12,7 @@ const Logout = () => {
   const navigate=useNavigate()
   async function submitHandler(e){
     e.preventDefault()
-    const res=await fetch('http://16.171.206.103/autentication/logout',{
+    const res=await fetch(`${process.env.REACT_APP_BACKEND_URL}/autentication/logout`,{
       method:"POST",
       body:JSON.stringify({token:token}),
       headers:{

@@ -24,8 +24,7 @@ const Login = () => {
 
   async function submitHandler(e) {
     e.preventDefault();
-
-    fetch("http://16.171.206.103/autentication/login", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/autentication/login`, {
       method: "POST",
       body: JSON.stringify(loginDetails),
       headers: {
@@ -62,58 +61,58 @@ const Login = () => {
 
   return (
     <div style={{ display: "grid", justifyContent: "center" }}>
-      <form onSubmit={submitHandler}>
-        <div
-          className="title"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <h3>Login</h3>
-        </div>
-        <div className="formBoundary">
-          <div className="form">
-            <div className="labels">
-              <label>Email Adress: </label>
-              <label>Password: </label>
-            </div>
-            <div className="inputs">
-              <input style={{width:'160px'}}
-                required
-                type="text"
-                name="emailAdress"
-                onChange={emailHandler}
-                value={loginDetails.email}
-              />
-              <div>
-              <input 
-                required
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                onChange={passwordHandler}
-                value={loginDetails.password}
-              />
-              <button className="showPassword" onClick={(e)=>{
-                e.preventDefault()
-                setShowPassword(!showPassword)
-              }} style={{background:'None',border:'None'}}>{showPassword ?<p > 
-              🙉</p>:<p>🙈</p>}</button>
-              </div>
-             
-            </div>
+    <form onSubmit={submitHandler}>
+      <div
+        className="title"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <h3>Login</h3>
+      </div>
+      <div className="formBoundary">
+        <div className="form">
+          <div className="labels">
+            <label>Email Adress: </label>
+            <label>Password: </label>
           </div>
-          <div className="button">
-            <button type="submit">login</button>
-          </div>
-         
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <NavLink to="/autentication/signUp">
-              <button className="modeChange" style={{ marginTop: "5px" }}>
-                Does not Have an Account? SignUp
-              </button>
-            </NavLink>
+          <div className="inputs">
+            <input style={{width:'160px'}}
+              required
+              type="text"
+              name="emailAdress"
+              onChange={emailHandler}
+              value={loginDetails.email}
+            />
+            <div>
+            <input 
+              required
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              onChange={passwordHandler}
+              value={loginDetails.password}
+            />
+            <button className="showPassword" onClick={(e)=>{
+              e.preventDefault()
+              setShowPassword(!showPassword)
+            }} style={{background:'None',border:'None'}}>{showPassword ?<p > 
+            🙉</p>:<p>🙈</p>}</button>
+            </div>
+           
           </div>
         </div>
-      </form>
-    </div>
+        <div className="button">
+          <button type="submit">login</button>
+        </div>
+       
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <NavLink to="/autentication/signUp">
+            <button className="modeChange" style={{ marginTop: "5px" }}>
+              Does not Have an Account? SignUp
+            </button>
+          </NavLink>
+        </div>
+      </div>
+    </form>
+  </div>
   );
 };
 

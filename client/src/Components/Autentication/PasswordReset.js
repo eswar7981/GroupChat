@@ -14,13 +14,13 @@ const PasswordReset = () => {
         e.preventDefault()
 
 
-        const checkTheStatus=await fetch(`http://localhost:5000/autentication/confirmResetPassword/${id}`,{
+        const checkTheStatus=await fetch(`${process.env.REACT_APP_BACKEND_URL}/autentication/confirmResetPassword/${id}`,{
             method:"GET",
         })
 
         const userId=await checkTheStatus.json()
    
-        const initiateTheReset=await fetch('http://localhost:5000/autentication/resetPassword',{
+        const initiateTheReset=await fetch('${process.env.REACT_APP_BACKEND_URL}/autentication/resetPassword',{
             method:'POST',
             body:JSON.stringify({
                 password:newPassword,

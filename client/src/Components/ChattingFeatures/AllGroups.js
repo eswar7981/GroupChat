@@ -10,8 +10,7 @@ const AllGroups = () => {
   const [noData, setNoData] = useState(false);
 
   useEffect(() => {
-   
-    fetch("http://16.171.206.103/chat/fetchAllGroups", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/fetchAllGroups`, {
       method: "GET",
       headers: {
         token: token,
@@ -21,12 +20,13 @@ const AllGroups = () => {
         return res.json();
       })
       .then((result) => {
-        if (result.status === "success" && result.groups!==null) {
+        console.log(result);
+        if (result.status === "success" && result.groups !== null) {
           localStorage.setItem("groups", JSON.stringify(result.groups));
-          
           setGroups(result.groups);
           setNoData(true);
         } else {
+          
         }
       })
       .catch((err) => {
@@ -35,7 +35,7 @@ const AllGroups = () => {
   }, []);
 
   return (
-    <>
+    <div  className="group__page">
       <div
         className="back"
         style={{ backgroundImage: `url(../images/wallpaper.jpg)` }}
@@ -43,7 +43,7 @@ const AllGroups = () => {
         <div className="groups">
           {!noData ? <p>No Groups Found</p> : <p>Groups</p>}
         </div>
-        {groups.length>1 &&
+        {groups.length > 0 &&
           groups.map((group) => (
             <NavLink
               to={`group/:${group.id}`}
@@ -60,7 +60,7 @@ const AllGroups = () => {
             </NavLink>
           ))}
       </div>
-    </>
+    </div>
   );
 };
 
