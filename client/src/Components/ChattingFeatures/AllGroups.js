@@ -38,7 +38,7 @@ const AllGroups = () => {
           {!noData ? <p>No Groups Found</p> : <p>Groups</p>}
         </div>
         {groups &&
-          groups.length > 1 &&
+          groups.length > 0 &&
           groups.map((group) => (
             <NavLink
               to={`group/:${group.id}`}
