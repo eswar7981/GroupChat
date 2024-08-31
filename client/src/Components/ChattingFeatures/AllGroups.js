@@ -20,7 +20,7 @@ const AllGroups = () => {
         return res.json();
       })
       .then((result) => {
-        if (result.status === "success" && result.groups[0] !== null) {
+        if (result.status === "success" ) {
           localStorage.setItem("groups", JSON.stringify(result.groups));
           console.log(result.groups)
           setGroups(result.groups);
@@ -38,7 +38,7 @@ const AllGroups = () => {
           {!noData ? <p>No Groups Found</p> : <p>Groups</p>}
         </div>
         {groups &&
-          groups.length > 0 &&
+          groups.length > 1 &&
           groups.map((group) => (
             <NavLink
               to={`group/:${group.id}`}
