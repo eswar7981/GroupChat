@@ -38,12 +38,12 @@ const AllGroups = () => {
     <div  className="group__page">
       <div
         className="back"
-        style={{ backgroundImage: `url(../images/wallpaper.jpg)` }}
+      
       >
         <div className="groups">
           {!noData ? <p>No Groups Found</p> : <p>Groups</p>}
         </div>
-        {groups.length > 0 &&
+        {groups.length && groups.length > 0 &&
           groups.map((group) => (
             <NavLink
               to={`group/:${group.id}`}
