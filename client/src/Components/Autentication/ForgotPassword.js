@@ -25,10 +25,10 @@ const ForgotPassword = (e) => {
        
       })
       .then((response) => {
-        console.log(response);
+   
       })
       .catch((err) => {
-        console.log(err);
+       
       });
 alert('A mail is sent to change your password')
       navigate('/autentication/login')

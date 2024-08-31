@@ -67,8 +67,7 @@ const Group = ({ id }) => {
   const handleUpload = async () => {
     if (file) {
       setStatus("uploading");
-      console.log(file.toString("base64"));
-      socket.emit("image", file.toString("base64"));
+       socket.emit("image", file.toString("base64"));
       setFinalFile(null);
     }
   };
@@ -171,7 +170,7 @@ const Group = ({ id }) => {
           setTimeout(() => {
             socket.emit("getPartcipants", details.groupId);
             socket.on("recievePartcipants", (data) => {
-              console.log(data);
+         
               setProfiles(data);
             });
           }, 1000);
@@ -194,7 +193,7 @@ const Group = ({ id }) => {
 
   const backButtonHandler = (e) => {
     e.preventDefault();
-    console.log(params.groupId[1]);
+ 
     navigate("/chat/fetchAllGroups");
   };
   return (

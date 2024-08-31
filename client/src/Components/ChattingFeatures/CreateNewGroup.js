@@ -18,7 +18,7 @@ const CreateNewGroup = () => {
       })
       .then((data) => {
         if (data.status === "success") {
-          console.log(data.users);
+       
           setAllParticipants(data.users);
           let me = data.users.filter((user) => user.emailAddress === email);
           me[0].admin = true;
@@ -36,7 +36,7 @@ const CreateNewGroup = () => {
     e.preventDefault();
 
     const addedAdmin = groupParticipants.map((user) => {
-      console.log(user);
+     
       if (user.name === profile.name) {
         if (user.admin === true) {
           user.admin = false;
@@ -130,8 +130,7 @@ const CreateNewGroup = () => {
                   })
                   .then((data) => {
                     if (data.status === "success") {
-                      console.log(data.participants);
-                      setAllParticipants(data.participants);
+                              setAllParticipants(data.participants);
                     }
                   });
               } else {
@@ -139,7 +138,7 @@ const CreateNewGroup = () => {
               }
             })
             .catch((err) => {
-              console.log(err);
+          
             });
     
           setGroupParticipants([]);

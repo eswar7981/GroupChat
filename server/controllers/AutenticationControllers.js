@@ -25,7 +25,7 @@ exports.GetSignupDetails = (req, res) => {
     },
   })
     .then((data) => {
-      console.log(data);
+   
       if (data == null) {
         bcrypt.hash(password, 10, async (err, hash) => {
           await User.create({
@@ -86,7 +86,7 @@ exports.GetLoginDetails = (req, response) => {
       })
       .catch((err) => {
         response.json({login:"user not found"});
-        console.log(err);
+  
       });
   });
 };
@@ -106,7 +106,7 @@ exports.resetPassword = (req, res) => {
       res.json({ id: request.UserId });
     })
     .catch((err) => {
-      console.log(err);
+   
     });
 };
 
@@ -114,7 +114,7 @@ exports.resetthePassword = (req, res) => {
   const password = req.body.password;
   const id = req.body.id;
   const uuid = req.body.uuid;
-  console.log(password, id);
+ 
   User.findOne({
     where: {
       id: id,

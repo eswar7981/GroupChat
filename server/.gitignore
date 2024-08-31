@@ -4,5 +4,6 @@ nodemon.json
 /util
 /node_modules
 
+.node_modules
 
 .env

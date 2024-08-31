@@ -35,7 +35,7 @@ exports.createGroup = (req, res) => {
     })
       .then(() => {
         Group.count().then((count) => {
-          console.log("count", count);
+    
           participants.split(",").map((i) => {
             const currUser = i;
 
@@ -87,7 +87,7 @@ exports.removeUser = (req, res) => {
 exports.fetchAllGroups = (req, res) => {
   const token = req.headers.token;
   const id = jwt.verify(token, `${process.env.SECRET_KEY}`);
-  console.log('called')
+
   User.findOne({
     where: {
       id: id.userId,

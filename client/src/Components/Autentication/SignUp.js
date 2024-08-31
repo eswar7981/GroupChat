@@ -37,7 +37,7 @@ const SignUp = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(SignUpDetails)
+   
     if (SignUpDetails.password.length < 8) {
       alert("password should contain atleast 8 characters");
     }

@@ -15,7 +15,6 @@ import AllGroups from "./Components/ChattingFeatures/AllGroups";
 import Group from "./Components/ChattingFeatures/Group";
 
 
-console.log(process.env.REACT_APP_BACKEND_URL,process.env.REACT_APP_NAME)
 function App() {
   const [openingPage, setOpeningPage] = useState(true);
 
