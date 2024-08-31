@@ -20,7 +20,7 @@ const AllGroups = () => {
         return res.json();
       })
       .then((result) => {
-        if (result.status === "success" ) {
+        if (result.status === "success" && groups[0]!==null ) {
           localStorage.setItem("groups", JSON.stringify(result.groups));
           console.log(result.groups)
           setGroups(result.groups);
